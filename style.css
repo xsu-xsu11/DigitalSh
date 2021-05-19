@@ -110,6 +110,15 @@ body {
   margin: -10px -10px 10px -10px;
 }
 
+.description.black {
+  background-color: #000;
+  color: #fff;
+}
+
+.description.black::before {
+  display: none;
+}
+
 .color__options {
   border: 1px solid var(--BLUE);
   border-radius: 10px;
@@ -330,6 +339,23 @@ body {
 }
 
 
+.info__model {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.info__photo {
+  height: 250px;
+  display: block;
+  background:  url(./pict/bg-black.jpg) no-repeat;
+  background-size: cover;
+  background-position: center center;
+  margin: 0 -10px 0 -10px;
+}
+.info__details {
+  font-family: inherit;
+}
+
+
 
 .success, .blocked {
   padding: 20px;
@@ -357,7 +383,6 @@ body {
 .blocked__icon {
   background-image: url("./pict/blocked.svg");
 }
-
 
 
 

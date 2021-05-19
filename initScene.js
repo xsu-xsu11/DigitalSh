@@ -100,6 +100,8 @@ function initScene() {
           );
         renderer.render(scene,camera);
     }
+
+    return {scene, renderer}
 }
 
 

@@ -229,7 +229,18 @@
                     <i>Loading chat...</i>
                 </div>
             </div>
-            
+            <div class="description__item info">
+                <div class="info__model">Е200 COUPE</div>
+                <div class="info__photo"></div>
+                <pre class="info__details">Модель: Е200 COUPE
+Модельный ряд: 2020
+Расположение и количество цилиндров: - / 4 / 4
+Рабочий объем: 1991 см3
+Расход топлива смешанный: 6.7-7.1 л/100 км
+Номинальная мощность: 145 кВт (197 л.с.)
+Стартовая цена: 5 320 000 руб. (включая НДС)
+                </pre>
+            </div>
         </div>
     </div>
 <script src="three.js"></script>
@@ -239,6 +250,7 @@
 <script src="carFunctions.js"></script>
 <script src="initScene.js"></script>
 <script src="customScroll.js"></script>
+<script src="pickFunctions.js"></script>
 <script>
     let cars = {};
     window.onload = async function init() {
@@ -269,19 +281,34 @@
     //скрыть/показать меню 
     body.addEventListener('click', (e) => {
         let target = e.target.closest('.interview');
-        if (!target) {
+
+        let pickPosition = setPickPosition(e, renderer);
+        pickPosition.z = 100;
+        let picked = pick(pickPosition, cars[activeColor], camera, true);
+        
+        if (!target && !picked) {
             interview.classList.add('hidden');
+            setTimeout(
+                () => description.classList.remove('black'),
+                300
+            )
+            
         } else {
             interview.classList.remove('hidden');
+            if (picked) {
+                description.classList.add('black');
+                makeItemVisible(document.querySelector('.description__item.info'));
+            } else {
+                let menuItem = e.target.closest('.menu__item');
+                if (!menuItem) return;
+                description.classList.remove('black');
+                const elClass = menuItem.classList[1];
+                descriptionItems.forEach((item) => {
+                    if (item.classList.contains(elClass))
+                        makeItemVisible(item); 
+                });
+            }
             
-            let menuItem = e.target.closest('.menu__item');
-            if (!menuItem) return;
-
-            const elClass = menuItem.classList[1];
-            descriptionItems.forEach((item) => {
-                if (item.classList.contains(elClass))
-                    makeItemVisible(item); 
-            });
         }
     });
 
@@ -365,6 +392,14 @@
     licenseCheckbox.addEventListener('change', () => {
         licenseFieldset.hidden = !licenseFieldset.hidden;
     });
+
+    const canvas = document.querySelector("#canvas");
+    canvas.addEventListener('click', (e) => {
+        
+    })
+
+    
+
 
 </script>
 <script>
